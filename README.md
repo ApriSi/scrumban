@@ -1,5 +1,5 @@
 
-# Scrumban School Projects
+# Scrumban School Project
 ## Tech Stack
 
 **Client:** React, Vite, TailwindCSS

@@ -1,22 +1,29 @@
-import { List } from './components'
+import { Project, Navbar } from './components'
+import { fetchFromAPI } from './utils/fetchFromApi'
+import React, { useEffect, useState} from 'react';
 
 function App() {
-  return (
-    <div className='p-3 bg-gradient-to-tr from-indigo-500 to-red-500 h-full w-full absolute text-white'>
-      <div className='flex gap-4'>
-        <List Title="Title" Cards={[
-          "This is a cool todo",
-          "This is another cool todo",
-          "This is another todo, but even more chad"
-        ]}/>
+  const [projects, setProjects] = useState([])
+  
+  useEffect(() => {
+    fetchFromAPI("projects/list")
+    .then((data) => setProjects(data))
+  }, [projects])
 
-        <List Title="WoW" Cards={[
-          "EAEA",
-          "KEKW",
-          "FIX SIZE FOR LIST LOL"
-        ]}/>
-        <button className='bg-white bg-opacity-[0.2] hover:bg-opacity-[0.3] rounded w-[150px] h-10 text-left pl-2'><span className='font-bold'>+</span> Add List</button>
+  return (
+    <div className='flex bg-gradient-to-tr gap-3 from-indigo-500 to-red-500 h-full w-full absolute text-white'>
+      <div className='flex flex-col gap-4 p-3'>
+        
+        {
+          projects.map((project) => (
+            <Project key={project.Id} title={project.Title}/>
+          ))
+        }
+
+
+        
       </div>
+      <button className='fixed bottom-1 right-2 p-2 font-bold bg-white bg-opacity-[0.2] hover:bg-opacity-[0.3]'>Create Project</button>
     </div>
   )
 }
