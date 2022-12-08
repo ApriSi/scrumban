@@ -38,7 +38,7 @@ router.get('/list/:id', async (req, res) => {
         res.send("This project doesn't exist") 
         return
     }
-    res.json({project, list})
+    res.json({Id: project.Id, Title: project.Title, List: list})
 })
 
 export default router

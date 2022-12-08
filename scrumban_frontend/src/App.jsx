@@ -1,29 +1,21 @@
 import { Project, Navbar } from './components'
 import { fetchFromAPI } from './utils/fetchFromApi'
-import React, { useEffect, useState} from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import { ProjectContext } from './ProjectContext';
 
-function App() {
-  const [projects, setProjects] = useState([])
-  
+const App = () => {
+  const {projectId, setProjectId} = useContext(ProjectContext)
+  const [project, setProject] = useState([])
+
   useEffect(() => {
-    fetchFromAPI("projects/list")
-    .then((data) => setProjects(data))
-  }, [projects])
-
+    fetchFromAPI(`projects/list/${projectId}`)
+    .then((data) => setProject(data))
+  }, [projectId])
+  
   return (
-    <div className='flex bg-gradient-to-tr gap-3 from-indigo-500 to-red-500 h-full w-full absolute text-white'>
-      <div className='flex flex-col gap-4 p-3'>
-        
-        {
-          projects.map((project) => (
-            <Project key={project.Id} title={project.Title}/>
-          ))
-        }
-
-
-        
-      </div>
-      <button className='fixed bottom-1 right-2 p-2 font-bold bg-white bg-opacity-[0.2] hover:bg-opacity-[0.3]'>Create Project</button>
+    <div className='flex bg-gradient-to-t gap-3 from-[#4e3da6] to-[#021f45] h-screen w-screen text-white'>
+      <Navbar />
+      <Project key={project.Id} id={project.Id} title={project.Title} lists={project.List}/>
     </div>
   )
 }
