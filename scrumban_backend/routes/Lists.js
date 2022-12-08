@@ -1,4 +1,4 @@
-import { getLists, createList, getList } from "../database.js"
+import { getLists, createList, getList } from "../database/lists.js"
 import express from "express"
 
 const router = express.Router()

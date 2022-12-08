@@ -1,4 +1,4 @@
-import { createCard, getCard, getCards, getCardsByListId } from "../database.js"
+import { createCard, getCard, getCards, getCardsByListId } from "../database/cards.js"
 import express from "express"
 
 const router = express.Router()
