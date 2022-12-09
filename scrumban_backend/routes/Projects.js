@@ -1,4 +1,4 @@
-import { getProjects, getProject, getListByProject } from "../database/projects.js"
+import { getProjects, getProject, getListByProject, createProject } from "../database/projects.js"
 import express from "express"
 
 const router = express.Router()
@@ -39,6 +39,11 @@ router.get('/list/:id', async (req, res) => {
         return
     }
     res.json({Id: project.Id, Title: project.Title, List: list})
+})
+
+router.post('/:title', async (req, res) => {
+    const project = await createProject(req.params.title)
+    res.json(project)
 })
 
 export default router

@@ -5,7 +5,9 @@ import List from './List'
 const Project = ({id, title, lists}) => {
   return (
     <div className='flex flex-col gap-2 mt-1'>
-        <h1 className='font-bold'>{title}</h1>
+        <h1 className='font-bold'>
+          <input type='text' className='bg-transparent' defaultValue={title}/>
+        </h1>
         <div className='flex gap-4'>
             {lists?.map((list, index) => (
               <List key={list.Id} id={list.Id} title={list.Title}/>
