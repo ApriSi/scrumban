@@ -1,20 +1,10 @@
 import React, { useEffect, useState, useContext } from 'react'
 import { fetchFromAPI, postToAPI } from '../utils/fetchFromApi'
 import { ProjectContext } from '../ProjectContext';
+import { HideTextInput } from '../utils/utils.js'
 
 document.addEventListener('click', function handleClick(event) {
-  let projectDiv = document.querySelector('.project-div')
-  let projectDisplayButton = document.querySelector('.show-project-button')
-  const hasButton = event.target.classList.contains('show-project-button')
-  const hasProjectDiv = event.target.classList.contains('project-div') || event.target.parentElement.classList.contains('project-div')
-
-  if(hasProjectDiv || hasButton) {
-    projectDiv.style.display = 'flex'
-    projectDisplayButton.style.display = 'none'
-  } else {
-    projectDiv.style.display = 'none'
-    projectDisplayButton.style.display = ''
-  }
+  HideTextInput(event, 'project-div', 'show-project-button')
 })
 
 const Navbar = () => {
@@ -49,7 +39,7 @@ const Navbar = () => {
       </div>
       
       <div id="create-project-div" className='hidden flex-col gap-2 project-div'>
-        <input id='project-title-input' type="text" className='text-gray-500 rounded'/>
+        <input id='project-title-input' type="text" placeholder='Project Name' className='text-gray-500 rounded'/>
         <button onClick={createProject} className='w-100% bg-primary rounded'>Create</button>
       </div>
       <button id='project-display-button' className='font-bold rounded bg-white bg-opacity-[0.2] hover:bg-opacity-[0.3] show-project-button'>Create Project</button>

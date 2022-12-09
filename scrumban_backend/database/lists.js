@@ -16,10 +16,10 @@ export async function getList(id) {
     return list[0]
 }
 
-export async function createList(title) {
+export async function createList(title, projectId) {
     const [rows] = await pool.query(`
-    INSERT INTO lists (title) VALUES(?)
-    `, [title])
+    INSERT INTO lists (title, projectId) VALUES(?, ?)
+    `, [title, projectId])
 
     return getList(rows.insertId)
 }

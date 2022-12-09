@@ -19,8 +19,8 @@ router.get('/:id', async (req, res) => {
     res.json(list)
 })
 
-router.post('/:title', async (req, res) => {
-    const list = await createList(req.params.title)
+router.post('/:title/:id', async (req, res) => {
+    const list = await createList(req.params.title, req.params.id)
     res.json(list)
 })
 
