@@ -34,3 +34,15 @@ export async function createProject(title) {
 
     return getProject(rows.insertId)
 }
+
+export async function renameProject(title, id) {
+    const [rows] = await pool.query(`UPDATE projects SET Title = ? WHERE Id=?`, [title, id])
+
+    return getProject(rows.insertId)
+}
+
+export async function deleteProject(id) {
+    const [project] = await pool.query(`DELETE FROM Projects WHERE Id=?`, [id])
+    const [lists] = await pool.query(`DELETE FROM Lists WHERE ProjectId=?`, [id])
+    const [cards] = await pool.query(`DELETE FROM Cards WHERE ListId=?`, [lists.insertId])
+}

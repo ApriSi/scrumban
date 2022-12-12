@@ -1,4 +1,4 @@
-import { getProjects, getProject, getListByProject, createProject } from "../database/projects.js"
+import { getProjects, getProject, getListByProject, createProject, renameProject, deleteProject } from "../database/projects.js"
 import express from "express"
 
 const router = express.Router()
@@ -43,6 +43,16 @@ router.get('/list/:id', async (req, res) => {
 router.post('/:title', async (req, res) => {
     const project = await createProject(req.params.title)
     res.json(project)
+})
+
+router.put('/:title/:id', async (req, res) => {
+    const project = await renameProject(req.params.title, req.params.id);
+    res.json(project)
+})
+
+router.delete('/:id', async (req, res) => {
+    const project = await deleteProject(req.params.id)
+    res.json(`project with the Id ${req.params.id} was deleted`)
 })
 
 export default router

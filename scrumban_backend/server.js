@@ -1,8 +1,10 @@
 import express from "express"
+import cors from 'cors'
 const app = express()
 
 import { Lists, Projects, Cards } from './routes/index.js'
 
+app.use(cors())
 app.use(express.json())
 
 // Routes

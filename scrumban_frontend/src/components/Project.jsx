@@ -3,6 +3,7 @@ import { postToAPI, fetchFromAPI } from '../utils/fetchFromApi'
 import List from './List'
 import { HideTextInput } from '../utils/utils.js'
 import { ProjectContext } from '../ProjectContext';
+import { putToAPI } from '../utils/fetchFromApi';
 
 document.addEventListener('click', function handleClick(event) {
   HideTextInput(event, 'list-div', 'show-list-button')
@@ -32,10 +33,24 @@ const Project = ({id, title}) => {
     })
   }
 
+  const renameProject = (name) => {
+    const projectTitle = document.getElementById('project-title')
+
+    if (name === '') {
+      projectTitle.value = title
+      return
+    }
+    
+    putToAPI(`projects/${name}/${id}`)
+    .then((data) => {
+      
+    })
+  }
+
   return (
     <div className='flex flex-col gap-2 mt-1'>
         <h1 className='font-bold'>
-          <input type='text' className='bg-transparent' defaultValue={title}/>
+          <input id='project-title' type='text' className='bg-transparent' defaultValue={title} onBlur={(e) => renameProject(e.currentTarget.value)}/>
         </h1>
 
         <div className='flex gap-4'>

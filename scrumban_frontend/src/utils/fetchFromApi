@@ -11,3 +11,13 @@ export const postToAPI = async (url) => {
     const { data } = await axios.post(`${BASE_URL}/${url}`)
     return data
 }
+
+export const putToAPI = async (url) => {
+    const { data } = await axios.put(`${BASE_URL}/${url}`)
+    return data
+}
+
+export const deleteFromAPI = async (url) => {
+    const { data } = await axios.delete(`${BASE_URL}/${url}`)
+    return data
+}
