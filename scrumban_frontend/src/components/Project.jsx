@@ -1,20 +1,31 @@
-import React, { useEffect, useState } from 'react'
-import { postToAPI } from '../utils/fetchFromApi'
+import React, { useEffect, useState, useContext } from 'react'
+import { postToAPI, fetchFromAPI } from '../utils/fetchFromApi'
 import List from './List'
 import { HideTextInput } from '../utils/utils.js'
+import { ProjectContext } from '../ProjectContext';
 
 document.addEventListener('click', function handleClick(event) {
   HideTextInput(event, 'list-div', 'show-list-button')
 })
 
-const Project = ({id, title, lists}) => {
+const Project = ({id, title}) => {
+  const {projectId, setProjectId} = useContext(ProjectContext)
+  const [lists, setLists] = useState([])
 
+  useEffect(() => {
+    fetchFromAPI(`projects/list/${id}`)
+    .then((data) => {
+      setLists(data)
+    }) 
+  }, [projectId])
+  
   const createList = (e) => {
     var titleInput = document.getElementById('list-title-input')
     if(titleInput.value == '') return
 
     postToAPI(`lists/${titleInput.value}/${id}`)
     .then((data) => {
+      
     })
     .catch((res) => {
       console.log(res)
@@ -29,7 +40,7 @@ const Project = ({id, title, lists}) => {
 
         <div className='flex gap-4'>
             {lists?.map((list, index) => (
-              <List key={list.Id} id={list.Id} title={list.Title}/>
+              <List key={index} id={list.Id} title={list.Title}/>
             ))}
 
             <div id="create-list-div" className='hidden flex-col gap-2 list-div h-16'>

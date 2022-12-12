@@ -32,13 +32,12 @@ router.get('/:id', async (req, res) => {
 })
 
 router.get('/list/:id', async (req, res) => {
-    const project = await getProject(req.params.id)
     const list = await getListByProject(req.params.id)
     if(list === undefined) {
         res.send("This project doesn't exist") 
         return
     }
-    res.json({Id: project.Id, Title: project.Title, List: list})
+    res.json(list)
 })
 
 router.post('/:title', async (req, res) => {

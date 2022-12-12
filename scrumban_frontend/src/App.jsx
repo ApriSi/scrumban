@@ -8,14 +8,14 @@ const App = () => {
   const [project, setProject] = useState([])
 
   useEffect(() => {
-    fetchFromAPI(`projects/list/${projectId}`)
+    fetchFromAPI(`projects/${projectId}`)
     .then((data) => setProject(data))
   }, [projectId])
   
   return (
     <div className='flex bg-gradient-to-t gap-3 from-[#4e3da6] to-[#021f45] h-screen w-screen text-white'>
       <Navbar />
-      <Project key={project.Id} id={project.Id} title={project.Title} lists={project.List}/>
+      <Project key={project.Id} id={project.Id} title={project.Title}/>
     </div>
   )
 }
