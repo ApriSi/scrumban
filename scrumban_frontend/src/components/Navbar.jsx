@@ -40,9 +40,9 @@ const Navbar = () => {
       
       <div id="create-project-div" className='hidden flex-col gap-2 project-div'>
         <input id='project-title-input' type="text" placeholder='Project Name' className='text-gray-500 rounded'/>
-        <button onClick={createProject} className='w-100% bg-primary rounded'>Create</button>
+        <button onClick={createProject} className='w-100% bg-primary rounded'>Add</button>
       </div>
-      <button id='project-display-button' className='font-bold rounded bg-white bg-opacity-[0.2] hover:bg-opacity-[0.3] show-project-button'>Create Project</button>
+      <button id='project-display-button' className='font-bold rounded bg-white bg-opacity-[0.2] hover:bg-opacity-[0.3] show-project-button'>Create</button>
     </div>
   )
 }

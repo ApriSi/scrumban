@@ -25,10 +25,10 @@ const Project = ({id, title}) => {
 
     postToAPI(`lists/${titleInput.value}/${id}`)
     .then((data) => {
-      
+      setLists((prevData) => prevData.concat(data))
     })
     .catch((res) => {
-      console.log(res)
+      console.log(res) 
     })
   }
 
@@ -45,7 +45,7 @@ const Project = ({id, title}) => {
 
             <div id="create-list-div" className='hidden flex-col gap-2 list-div h-16'>
               <input id='list-title-input' type="text" placeholder='List Name' className='text-gray-500 rounded p-1'/>
-              <button onClick={(e) => createList(e)} className='w-100% h-7 bg-primary rounded'>Create</button>
+              <button onClick={(e) => createList(e)} className='w-100% h-7 bg-primary rounded'>Add</button>
             </div>
 
             <button className='bg-white bg-opacity-[0.2] hover:bg-opacity-[0.3] rounded w-[150px] h-10 text-left pl-2 show-list-button'><span className='font-bold'>+</span> Add List</button>
