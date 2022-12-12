@@ -2,6 +2,8 @@ import React, { useEffect, useState, useContext } from 'react'
 import { fetchFromAPI, postToAPI } from '../utils/fetchFromApi'
 import { ProjectContext } from '../ProjectContext';
 import { HideTextInput } from '../utils/utils.js'
+import {ProjectButton} from './';
+import { Link } from 'react-router-dom';
 
 document.addEventListener('click', function handleClick(event) {
   HideTextInput(event, 'project-div', 'show-project-button')
@@ -11,7 +13,6 @@ const Navbar = () => {
   const {projectId, setProjectId} = useContext(ProjectContext)
   const [projects, setProjects] = useState([])
 
-  
   const createProject = () => {
     var titleInput = document.getElementById('project-title-input')
     if(titleInput.value == '') return
@@ -32,10 +33,10 @@ const Navbar = () => {
 
   return (
     <div className='flex gap-2 flex-col h-screen p-2 bg-black bg-opacity-[0.2] w-[150px]'>
-      <h1 className='text-center font-black'>Projects</h1>
+      <Link to='/'><button className='text-center font-black bg-primary hover:bg-opacity-[0.8] rounded w-full'>Projects</button></Link>
     
       <div className='flex flex-col gap-2'>
-        {projects?.map((project, index) => <button onClick={(e) => setProjectId(project.Id)} key={project.Id} id={project.Id} className='rounded bg-indigo-500 hover:bg-indigo-600 font-bold'>{project.Title}</button>)}
+        {projects?.map((project, index) => <ProjectButton key={index} id={project.Id} title={project.Title} />)}
       </div>
       
       <div id="create-project-div" className='hidden flex-col gap-2 project-div'>

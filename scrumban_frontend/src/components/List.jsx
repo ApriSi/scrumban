@@ -14,7 +14,7 @@ const List = ({id, title}) => {
     useEffect(() => {
       fetchFromAPI(`cards/list/${id}`)
       .then((data) => setCards(data))
-    }, [])
+    }, [id])
     
     const createCard = () => {
         var titleInput = document.getElementById(`card-title-input-${id}`)

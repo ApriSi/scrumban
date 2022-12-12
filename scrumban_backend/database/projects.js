@@ -38,7 +38,7 @@ export async function createProject(title) {
 export async function renameProject(title, id) {
     const [rows] = await pool.query(`UPDATE projects SET Title = ? WHERE Id=?`, [title, id])
 
-    return getProject(rows.insertId)
+    return getProject(id)
 }
 
 export async function deleteProject(id) {

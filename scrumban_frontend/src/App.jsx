@@ -1,22 +1,17 @@
-import { Project, Navbar } from './components'
-import { fetchFromAPI } from './utils/fetchFromApi'
-import React, { useEffect, useState, useContext } from 'react';
-import { ProjectContext } from './ProjectContext';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import { Home, Project } from './containers'
+import { ProjectContextProvider } from './ProjectContext'
 
 const App = () => {
-  const {projectId, setProjectId} = useContext(ProjectContext)
-  const [project, setProject] = useState([])
-
-  useEffect(() => {
-    fetchFromAPI(`projects/${projectId}`)
-    .then((data) => setProject(data))
-  }, [projectId])
-  
   return (
-    <div className='flex bg-gradient-to-t gap-3 from-[#4e3da6] to-[#021f45] h-screen w-screen text-white'>
-      <Navbar />
-      <Project key={project.Id} id={project.Id} title={project.Title}/>
-    </div>
+    <Router>
+      <ProjectContextProvider>
+        <Routes>
+          <Route path='/' element={<Home/>}/>
+          <Route path='/project/:id' element={<Project/>} />
+        </Routes>
+      </ProjectContextProvider>
+    </Router>
   )
 }
 
