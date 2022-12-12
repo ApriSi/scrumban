@@ -2,12 +2,18 @@ import axios from "axios";
 
 const BASE_URL = 'http://localhost:6969';
 
+const options = {
+    headers: {
+        'Access-Control-Allow-Origin': '*'
+    }
+}
+
 export const fetchFromAPI = async (url) => {
-    const { data } = await axios.get(`${BASE_URL}/${url}`);
+    const { data } = await axios.get(`${BASE_URL}/${url}`, options);
     return data
 }
 
 export const postToAPI = async (url) => {
-    const { data } = await axios.post(`${BASE_URL}/${url}`)
+    const { data } = await axios.post(`${BASE_URL}/${url}`, options)
     return data
 }
