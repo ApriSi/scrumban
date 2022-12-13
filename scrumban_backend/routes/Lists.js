@@ -1,4 +1,4 @@
-import { getLists, createList, getList } from "../database/lists.js"
+import { getLists, createList, getList, updateList } from "../database/lists.js"
 import express from "express"
 
 const router = express.Router()
@@ -22,6 +22,11 @@ router.get('/:id', async (req, res) => {
 router.post('/:title/:id', async (req, res) => {
     const list = await createList(req.params.title, req.params.id)
     res.json(list)
+})
+
+router.put('/:title/:id', async (req, res) => {
+    const card = await updateList(req.params.title, req.params.id)
+    res.json('List Updated')
 })
 
 export default router

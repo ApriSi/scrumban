@@ -24,3 +24,8 @@ export async function createList(title, projectId) {
     return getList(rows.insertId)
 }
 
+export async function updateList(title, id) {
+    const [rows] = await pool.query(`
+    UPDATE lists SET Title=? WHERE Id=?
+    `, [title, id])
+}

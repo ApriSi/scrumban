@@ -22,3 +22,9 @@ export async function createCard(description, listId) {
 
     return getCard(rows.insertId)
 }
+
+export async function updateCard(description, id) {
+    const [rows] = await pool.query(`
+    UPDATE cards SET Description=? WHERE Id=?
+    `, [description, id])
+}

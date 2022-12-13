@@ -4,7 +4,10 @@ const app = express()
 
 import { Lists, Projects, Cards } from './routes/index.js'
 
-app.use(cors())
+app.use(cors({
+    origin: '*'
+}));
+
 app.use(express.json())
 
 // Routes

@@ -1,4 +1,4 @@
-import { createCard, getCard, getCards, getCardsByListId } from "../database/cards.js"
+import { createCard, getCard, getCards, getCardsByListId, updateCard } from "../database/cards.js"
 import express from "express"
 
 const router = express.Router()
@@ -24,4 +24,8 @@ router.post('/:description/:listId', async (req, res) => {
     res.json(card)
 })
 
+router.put('/:description/:cardId', async (req, res) => {
+    const card = await updateCard(req.params.description, req.params.cardId)
+    res.json('Card Updated')
+})
 export default router
