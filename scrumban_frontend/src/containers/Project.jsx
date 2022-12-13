@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { fetchFromAPI, postToAPI, putToAPI } from '../utils/fetchFromApi'
 import { useParams } from 'react-router'
 import { List, Navbar } from '../components'
@@ -11,6 +11,7 @@ document.addEventListener('click', function handleClick(event) {
 const Project = () => {
     const { id } = useParams()
 
+    const projectTitle = useRef('')
     const [project, setProject] = useState([])
     const [lists, setLists] = useState([])
 
@@ -19,7 +20,6 @@ const Project = () => {
         .then((data) => {
             setProject(data)
         })
-        
     }, [id])
 
     useEffect(() => {
@@ -29,6 +29,7 @@ const Project = () => {
         }) 
     }, [id])
 
+
     const createList = (e) => {
         var titleInput = document.getElementById('list-title-input')
         if(titleInput.value == '') return
@@ -37,33 +38,39 @@ const Project = () => {
         postToAPI(`lists/${titleInput.value}/${id}`)
         .then((data) => {
             setLists((prevData) => prevData.concat(data))
+            
         })
         .catch((res) => {
             console.log(res) 
         })
     }
     
-    const renameProject = (name) => {
-        const projectTitle = document.getElementById('project-title')
-        if (name === '') {
-            projectTitle.value = project.Title
+    const renameProject = (e) => {
+        document.getElementById('project-title-h1').style.display = ''
+        e.target.style.display = 'none'
+        if (projectTitle.current.value === '') {
             return
         }
-        
-        putToAPI(`projects/${name}/${id}`)
+        putToAPI(`projects/${projectTitle.current.value}/${id}`)
         .then((data) => {
             setProject(data)
         })
     }
-
+    
     return (
         <div className='flex gap-4'>
-            <Navbar />
+            <Navbar projectTitle={projectTitle} />
             <div className='flex flex-col gap-2 sticky pt-2'>
-                <h1 className='font-bold'>
-                    <input id='project-title' type='text' className='bg-transparent' defaultValue={project.Title} onBlur={(e) => renameProject(e.currentTarget.value)}/>
-                </h1>
-
+                <div className='hover:bg-gray-500 cursor-pointer bg-opacity-5 w-fit rounded pr-1 pl-1 pt-[0.2] pb-[0.2]'>
+                    <h1 id='project-title-h1' className='font-bold' style={{display: ''}} onClick={(e) => {
+                        e.target.style.display = 'none'
+                        document.getElementById('project-title').style.display = 'block'
+                        document.getElementById('project-title').value = e.target.innerText
+                        document.getElementById('project-title').focus()
+                    }}>{project?.Title}</h1>
+                    <input id='project-title' type='text' className='hidden bg-transparent' ref={projectTitle} onBlur={(e) => renameProject(e)}/>
+                </div>
+                
                 <div className='flex gap-4'>
                     {lists?.map((list, index) => (
                     <List key={index} id={list.Id} title={list.Title}/>

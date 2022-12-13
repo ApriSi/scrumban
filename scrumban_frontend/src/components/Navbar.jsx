@@ -9,7 +9,7 @@ document.addEventListener('click', function handleClick(event) {
   HideTextInput(event, 'project-div', 'show-project-button')
 })
 
-const Navbar = () => {
+const Navbar = (projectTitle) => {
   const {projectId, setProjectId} = useContext(ProjectContext)
   const [projects, setProjects] = useState([])
 
@@ -29,7 +29,7 @@ const Navbar = () => {
   useEffect(() => {
     fetchFromAPI(`projects`)
     .then((data) => setProjects(data))
-  }, [projectId])
+  }, [projectId, projectTitle])
 
   return (
     <div className='flex gap-2 flex-col h-screen p-2 bg-black bg-opacity-[0.2] w-[150px]'>
