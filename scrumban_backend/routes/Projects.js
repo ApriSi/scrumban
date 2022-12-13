@@ -40,8 +40,8 @@ router.get('/list/:id', async (req, res) => {
     res.json(list)
 })
 
-router.post('/:title', async (req, res) => {
-    const project = await createProject(req.params.title)
+router.post('/:title/:color', async (req, res) => {
+    const project = await createProject(req.params.title, req.params.color)
     res.json(project)
 })
 

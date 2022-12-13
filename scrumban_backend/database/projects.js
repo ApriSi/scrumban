@@ -27,10 +27,10 @@ export async function getProject(id) {
     return project[0]
 }
 
-export async function createProject(title) {
+export async function createProject(title, color) {
     const [rows] = await pool.query(`
-    INSERT INTO projects(title) VALUES(?)
-    `, [title])
+    INSERT INTO projects(title, color) VALUES(?, ?)
+    `, [title, color])
 
     return getProject(rows.insertId)
 }
