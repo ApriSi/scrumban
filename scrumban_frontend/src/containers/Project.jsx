@@ -58,7 +58,7 @@ const Project = () => {
     }
     
     return (
-        <div className='flex gap-4'>
+        <div className='flex gap-4 bg-[#292929]'>
             <Navbar projectTitle={projectTitle} />
             <div className='flex flex-col gap-2 sticky pt-2'>
                 <div className='hover:bg-gray-500 cursor-pointer bg-opacity-5 w-fit rounded pr-1 pl-1 pt-[0.2] pb-[0.2]'>
