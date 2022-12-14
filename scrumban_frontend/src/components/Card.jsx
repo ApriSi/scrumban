@@ -11,25 +11,25 @@ const Card = ({Description, id}) => {
     }
 
     return (
-    <div className='bg-white shadow-sm p-1 rounded'>
+    <div className='bg-white shadow-sm p-1 rounded hover:bg-slate-100 ' title='Edit Text'>
         <p onClick={(e) => {
             var target = e.target;
-            var input = target.parentElement.getElementsByTagName('input')[0]
+            var input = target.parentElement.getElementsByTagName('textarea')[0]
             
             input.style.display = ''
             target.style.display = 'none'
             input.value = target.innerText
             input.focus()
-        }} style={{display: ''}}>{Description}</p>
+        }} style={{display: '', wordWrap: 'break-word'}}>{Description}</p>
 
-        <input onBlur={(e) => {
+        <textarea onBlur={(e) => {
             var target = e.target;
             var paragraph = target.parentElement.getElementsByTagName('p')[0]
             
             target.style.display = 'none'
             paragraph.style.display = ''
             renameCard(e.target.value, paragraph)
-        }} style={{display: 'none'}} type='text' className='w-[100%] bg-transparent' />
+        }} style={{display: 'none'}} className='w-[100%] bg-transparent' />
     </div>
 )}
 

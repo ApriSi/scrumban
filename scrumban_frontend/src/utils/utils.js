@@ -6,7 +6,8 @@ export function HideTextInput(event, primary, secondary) {
     const hasProjectDiv = event.target.classList.contains(primary) || event.target.parentElement.classList.contains(primary)  
     if(hasProjectDiv || hasButton) {
       projectDiv.style.display = 'flex'
-      projectDisplayButton.style.display = 'none'
+      projectDisplayButton.style.display = 'none'   
+      projectDiv.getElementsByTagName('input')[0].focus()
     } else {
       projectDiv.style.display = 'none'
       projectDisplayButton.style.display = ''

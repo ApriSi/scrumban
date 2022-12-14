@@ -16,7 +16,7 @@ const Home = () => {
 
       if(titleInput.value == '') return
       
-      postToAPI(`projects/${titleInput.value}/${color.value.replace('#', '')}`)
+      postToAPI(`projects/${titleInput.value}/${color.value}`)
       .then((data) => {
         setProjects((prevsData) => prevsData.concat(data))
         OpenCreateMenu()
@@ -28,12 +28,20 @@ const Home = () => {
 
     function OpenCreateMenu(){
       var element = document.getElementById('create-new-project-div');
+      var input = document.getElementById('project-title-input');
 
       if(element.className == 'new-project-div'){
         element.className = 'new-project-div open'
+        input.focus()  
       }else{
         element.className = 'new-project-div'
       }
+    }
+
+    function ChangeColor(){
+      var colorInput = document.getElementById('color');
+      var color = document.getElementById('color-visual')
+      color.className = "rounded-l w-[10%] h-[23px] bg-color" + colorInput.value
     }
 
     return (
@@ -48,13 +56,23 @@ const Home = () => {
                 <h1>+</h1>
                 <p>Add Project</p>
               </button>
-              <div className='new-project-input-div hidden flex-col items-center gap-5 m-5'>
-                <h1 className='font-bold' onClick={OpenCreateMenu}>Create New Project</h1>
-                <div className='w-full flex'>
-                  <input type='color' className='color' id='color'></input>
-                  <input className='w-[70%] l-[20%] p-1 focus:outline-none rounded-l bg-black/[0.2]' type='text' id='project-title-input'></input>
-                  <button className='bg-indigo-600 bg-opacity-[0.5] backdrop-blur-xl w-[20%] l-[20%] p-1 rounded-r' onClick={createProject}>Create</button>
+              <div className='new-project-input-div hidden flex-col items-center gap-3 m-5'>
+                <input className='w-[90%] l-[20%] p-1 focus:outline-none rounded bg-black/[0.2]' type='text' id='project-title-input' placeholder='Name'></input>
+                <div className='w-[90%] flex items-center'>
+                  <div id="color-visual" className='rounded-l w-[10%] h-[23px] bg-colorRed'></div>
+                  <select name="colors" id="color" defaultValue="Red" className='bg-black focus:outline-none rounded-r w-[90%]' onChange={(e) => ChangeColor()}>
+                    <option value="Black" className='bg-colorBlack'>Black</option>
+                    <option value="Pink" className='bg-colorPink'>Pink</option>
+                    <option value="Red" className='bg-colorRed'>Red</option>
+                    <option value="Blue" className='bg-colorBlue'>Blue </option>
+                    <option value="Cyan" className='bg-colorCyan'>Cyan</option>
+                    <option value="Green" className='bg-colorGreen'>Green</option>
+                    <option value="Yellow" className='bg-colorYellow'>Yellow</option>
+                    <option value="Orange" className='bg-colorOrange'>Orange</option>
+                    <option value="Magenta" className='bg-colorMagenta'>Magenta</option>
+                  </select>              
                 </div>
+                <button className='bg-indigo-600 bg-opacity-[0.5] backdrop-blur-xl w-[90%] l-[20%] p-1 rounded' onClick={createProject} id="create-button">Create</button>
               </div>
             </div>
           </div>

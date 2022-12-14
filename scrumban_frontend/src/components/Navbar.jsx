@@ -18,7 +18,7 @@ const Navbar = (projectTitle) => {
       <Link to='/'><button className='text-center font-black bg-primary hover:bg-opacity-[0.8] rounded w-full'>Projects</button></Link>
     
       <div className='flex flex-col gap-2'>
-        {projects?.map((project, index) => <ProjectButton key={index} id={project.Id} title={project.Title} />)}
+        {projects?.map((project, index) => <ProjectButton key={index} id={project.Id} color={project.Color} title={project.Title} />)}
       </div>
     </div>
   )
