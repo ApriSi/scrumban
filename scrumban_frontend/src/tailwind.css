@@ -6,7 +6,7 @@
     @apply h-[150px] w-[200px]
 }
 .add-project-button {
-    @apply rounded h-[150px] w-[200px] bg-black bg-opacity-[0.2] hover:bg-indigo-600 hover:bg-opacity-[0.5] font-bold p-1;
+    @apply rounded h-[150px] w-[200px] bg-black bg-opacity-[0.2] hover:bg-indigo-600 hover:bg-opacity-[0.5] font-bold;
 }
 
 .new-project-div.open{

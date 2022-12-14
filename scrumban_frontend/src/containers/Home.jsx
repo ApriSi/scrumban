@@ -47,12 +47,12 @@ const Home = () => {
     return (
       <div className='flex flex-col gap-5 h-full w-full p-3 text-white'>
           <h1 className='text-center font-bold text-4xl'>Scrumban</h1>
-          <div className='flex flex-wrap gap-2 bg-black w-full h-fit p-2 bg-opacity-[0.2] rounded '>
+          <div className='flex flex-wrap gap-2 bg-black w-full h-fit p-2 bg-opacity-[0.1] rounded '>
             {projects?.map((project, index) => (
                 <HomeProjectButton key={index} color={project.Color} id={project.Id} title={project.Title} />
             ))}
             <div id='create-new-project-div' className='new-project-div'>
-              <button className='add-project-button' onClick={OpenCreateMenu}>
+              <button className='relative add-project-button' onClick={OpenCreateMenu}>
                 <h1>+</h1>
                 <p>Add Project</p>
               </button>
