@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { fetchFromAPI, postToAPI, putToAPI } from '../utils/fetchFromApi'
+import { fetchFromAPI, postToAPI, putToAPI, deleteFromAPI } from '../utils/fetchFromApi'
 import { Card } from './'
 import { HideTextInput } from '../utils/utils.js'
 import Project from '../containers/Project'
@@ -34,9 +34,14 @@ const List = ({id, title, color}) => {
          .then((data) => setCards(cards.concat(data)))
     }
 
+    const deleteCard = () => {
+        document.getElementById(`list-${id}`).remove();
+        deleteFromAPI(`lists/${id}`)
+    }
+
     // Oh god 🤢🤢🤢🤢🤢🤢 the code 🤢🤢🤢🤢🤢🤢🤢 🗿 🤢🤢🤢🤢🤢🤢🤢 it's bad ( but it works )
     return(
-        <div className='flex flex-col bg-gray-200 gap-1 shadow-md text-black p-2 rounded w-[200px] h-fit'>
+        <div id={`list-${id}`} className='flex flex-col bg-gray-200 gap-1 shadow-md text-black p-2 rounded w-[200px] h-fit relative'>
             <div>
                 <h1 title='Edit Text' className='font-bold text-center hover:bg-black/[0.1] rounded' onClick={(e) => {
                     var target = e.target;
@@ -67,6 +72,7 @@ const List = ({id, title, color}) => {
                 <button title="Add New Card" className={`text-gray-500 hover:bg-gray-300 rounded p-1 w-100% h-[30px] text-left show-card-button-${id}`}><span>+</span>Add Card</button>
                 
             </div>
+            <button className='absolute top-0 right-0 pt-1 pr-2 hover:text-red-500' onClick={deleteCard}>X</button>
         </div>
     )
 } 

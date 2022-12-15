@@ -1,4 +1,4 @@
-import {putToAPI} from '../utils/fetchFromApi'
+import {putToAPI, deleteFromAPI} from '../utils/fetchFromApi'
 
 
 const Card = ({Description, id}) => {
@@ -10,8 +10,13 @@ const Card = ({Description, id}) => {
         putToAPI(`cards/${description}/${id}`)
     }
 
+    const deleteCard = () => {
+        document.getElementById(`card-${id}`).remove();
+        deleteFromAPI(`cards/${id}`)
+    }
+
     return (
-    <div className='bg-white shadow-sm p-1 rounded hover:bg-slate-100 ' title='Edit Text'>
+    <div id={`card-${id}`} className='bg-white shadow-sm p-1 rounded hover:bg-slate-100 relative' title='Edit Text'>
         <p onClick={(e) => {
             var target = e.target;
             var input = target.parentElement.getElementsByTagName('textarea')[0]
@@ -30,6 +35,8 @@ const Card = ({Description, id}) => {
             paragraph.style.display = ''
             renameCard(e.target.value, paragraph)
         }} style={{display: 'none'}} className='w-[100%] bg-transparent' />
+        
+        <button className='absolute top-1 right-0 pr-1 hover:text-red-500' onClick={deleteCard}>X</button>
     </div>
 )}
 

@@ -29,3 +29,13 @@ export async function updateList(title, id) {
     UPDATE lists SET Title=? WHERE Id=?
     `, [title, id])
 }
+
+export async function removeList(id) {
+    const [list] = await pool.query(`
+    DELETE FROM lists WHERE Id=?;
+    `, [id])
+
+    const [card] = await pool.query(`
+    DELETE FROM cards WHERE ListId=?;
+    `, [id])
+}

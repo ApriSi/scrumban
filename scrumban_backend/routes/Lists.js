@@ -1,4 +1,4 @@
-import { getLists, createList, getList, updateList } from "../database/lists.js"
+import { getLists, createList, getList, updateList, removeList } from "../database/lists.js"
 import express from "express"
 
 const router = express.Router()
@@ -25,8 +25,13 @@ router.post('/:title/:id', async (req, res) => {
 })
 
 router.put('/:title/:id', async (req, res) => {
-    const card = await updateList(req.params.title, req.params.id)
+    const list = await updateList(req.params.title, req.params.id)
     res.json('List Updated')
+})
+
+router.delete('/:id', async (req, res) => {
+    const list = removeList(req.params.id)
+    res.json('List and its content is deleted')
 })
 
 export default router

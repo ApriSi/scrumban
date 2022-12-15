@@ -28,3 +28,9 @@ export async function updateCard(description, id) {
     UPDATE cards SET Description=? WHERE Id=?
     `, [description, id])
 }
+
+export async function deleteCard(id) {
+    const [card] = await pool.query(`
+    DELETE FROM cards WHERE Id=?;
+    `, [id])
+}
