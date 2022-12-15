@@ -41,18 +41,20 @@ const Card = ({Description, id, listId, priority, cardLength}) => {
 
     const changeListRight = (e) => {
         textAreaFocus(e)
+
         ++listId
         var newListElement = document.getElementById(`list-${listId}`).getElementsByTagName('div')[0].getElementsByTagName('div')[0]
 
         newListElement.append(document.getElementById(`card-${id}`))
         putToAPI(`cards/changeList/${id}/${listId}`)
+
     }
 
     const changeListLeft = (e) => {
         textAreaFocus(e)
+        
         --listId
         var newListElement = document.getElementById(`list-${listId}`).getElementsByTagName('div')[0].getElementsByTagName('div')[0]
-
         newListElement.append(document.getElementById(`card-${id}`))
         putToAPI(`cards/changeList/${id}/${listId}`)
     }
