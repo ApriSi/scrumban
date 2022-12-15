@@ -57,7 +57,7 @@ const Home = () => {
                 <p>Add Project</p>
               </button>
               <div className='new-project-input-div hidden flex-col items-center gap-3 m-5'>
-                <input className='w-[90%] l-[20%] p-1 focus:outline-none rounded bg-black/[0.2]' type='text' id='project-title-input' placeholder='Name'></input>
+                <input autoComplete="off" className='w-[90%] l-[20%] p-1 focus:outline-none rounded bg-black/[0.2]' type='text' id='project-title-input' placeholder='Name'></input>
                 <div className='w-[90%] flex items-center'>
                   <div id="color-visual" className='rounded-l w-[10%] h-[23px] bg-colorRed'></div>
                   <select name="colors" id="color" defaultValue="Red" className='bg-black focus:outline-none rounded-r w-[90%]' onChange={(e) => ChangeColor()}>

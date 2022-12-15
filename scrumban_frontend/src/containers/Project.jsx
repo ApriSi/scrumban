@@ -70,8 +70,8 @@ const Project = () => {
                                 document.getElementById('project-title').value = e.target.innerText
                                 document.getElementById('project-title').focus()
                             }}>{project?.Title}</h1>
-                            <input id='project-title' type='text' className='hidden bg-transparent text-[25px] font-bold focus:outline-none' ref={projectTitle} onBlur={(e) => renameProject(e)}/>
                         </div>
+                        <input id='project-title' autoComplete="off" type='text' className='w-full hidden bg-transparent text-[25px] font-bold focus:outline-none' ref={projectTitle} onBlur={(e) => renameProject(e)}/>
                     </div>
                     
                     <div className='flex gap-4 overflow-x-auto w-full h-full'>

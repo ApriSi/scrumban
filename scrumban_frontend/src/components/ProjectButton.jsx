@@ -6,7 +6,7 @@ const ProjectButton = ({title, id, color}) => {
     <Link to={`/project/${id}`} className='h-fit'>
         <button className={`rounded bg-gray-800 hover:bg-indigo-600/[0.8] font-bold w-[100px] relative`}>
           <div className={`absolute bottom-0 w-[100%] h-[3px] bg-color${color} rounded`}/>
-          <p className='p-1'>{title}</p>
+          <p className='p-1 truncate'>{title}</p>
         </button>
     </Link>
   )

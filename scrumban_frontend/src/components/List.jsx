@@ -2,7 +2,10 @@ import React, { useState, useEffect } from 'react'
 import { fetchFromAPI, postToAPI, putToAPI, deleteFromAPI } from '../utils/fetchFromApi'
 import { Card } from './'
 import { HideTextInput } from '../utils/utils.js'
-import Project from '../containers/Project'
+import { Clear } from '@mui/icons-material'
+import { SvgIcon } from '@mui/material'
+
+
 
 
 const List = ({id, title, color}) => {
@@ -29,9 +32,9 @@ const List = ({id, title, color}) => {
     const createCard = () => {
         var titleInput = document.getElementById(`card-title-input-${id}`)
         if(titleInput.value == '') return
-
-         postToAPI(`cards/${titleInput.value}/${id}`)
-         .then((data) => setCards(cards.concat(data)))
+        var newPriority = cards.length + 1
+        postToAPI(`cards/${titleInput.value}/${id}/${newPriority}`)
+        .then((data) => setCards(cards.concat(data)))
     }
 
     const deleteCard = () => {
@@ -61,17 +64,16 @@ const List = ({id, title, color}) => {
                 renameList(e.target.value, paragraph)
             }} style={{display: 'none'}} type='text' className='w-[100%] bg-transparent' />
 
-                <button className='absolute top-0 right-0 pt-1 pr-2 hover:text-red-500' onClick={deleteCard}>X</button>
+                <button className='absolute top-0 right-0 pt-1 pr-2 hover:text-red-500' onClick={deleteCard}><SvgIcon fontSize='small' component={Clear}/></button>
             <div className='flex flex-col gap-2'>
-                {cards?.map((card, key) => <Card id={card.Id} key={key} Description={card.Description}/>)}
+                {cards?.map((card, key) => <Card cardLength={cards.length} listId={card.ListId} priority={card.Priority} id={card.Id} key={card.Priority} Description={card.Description}/>)}
                 
                 <div id="create-card-div" className={`hidden card-div-${id}`}>
                     <input id={`card-title-input-${id}`} type="text" placeholder='Card Name' className='text-gray-500 focus:outline-none rounded-l p-1 w-[80%] h-[30px]'/>
                     <button onClick={(e) => createCard()} className={`bg-indigo-600 rounded-r text-white w-[20%] h-[30px]`}>Add</button>
                 </div>
                 
-                <button title="Add New Card" className={`text-gray-500 hover:bg-gray-800 rounded p-1 w-100% h-[30px] text-left show-card-button-${id}`}><span>+</span>Add Card</button>
-                
+                <button title="Add New Card" className={`text-gray-500 hover:bg-gray-800 rounded p-1 w-100% h-[30px] text-left show-card-button-${id}`}>+ Add Card</button>  
             </div>
         </div>
     )
