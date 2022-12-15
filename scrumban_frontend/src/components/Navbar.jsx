@@ -14,10 +14,10 @@ const Navbar = (projectTitle) => {
   }, [projectId, projectTitle])
 
   return (
-    <div className='flex gap-2 flex-col h-screen p-2 bg-black bg-opacity-[0.2] w-[150px]'>
-      <Link to='/'><button className='text-center font-black bg-primary hover:bg-opacity-[0.8] rounded w-full'>Projects</button></Link>
+    <div className='flex gap-2 flex-row h-[50px] p-2 bg-gray-700 w-screen overflow-x-auto'>
+      <Link to='/'><button className='text-center font-black bg-gray-800 hover:bg-indigo-600 rounded h-[100%] w-[100px]'>Projects</button></Link>
     
-      <div className='flex flex-col gap-2'>
+      <div className='flex flex-row gap-2'>
         {projects?.map((project, index) => <ProjectButton key={index} id={project.Id} color={project.Color} title={project.Title} />)}
       </div>
     </div>

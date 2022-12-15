@@ -16,27 +16,35 @@ const Card = ({Description, id}) => {
     }
 
     return (
-    <div id={`card-${id}`} className='bg-white shadow-sm p-1 rounded hover:bg-slate-100 relative' title='Edit Text'>
+    <div id={`card-${id}`} className=' bg-gray-900 border border-indigo-600 p-1 rounded hover:bg-gray-800 relative' title='Edit Text'>
         <p onClick={(e) => {
             var target = e.target;
-            var input = target.parentElement.getElementsByTagName('textarea')[0]
-            
-            input.style.display = ''
+            var div = target.parentElement.getElementsByTagName('div')[0]
+            var input = div.getElementsByTagName('textarea')[0]
+
+            div.style.display = ''
             target.style.display = 'none'
             input.value = target.innerText
             input.focus()
         }} style={{display: '', wordWrap: 'break-word'}}>{Description}</p>
+        <div style={{display: "none"}} className="relative flex flex-col">
+            <textarea onBlur={(e) => {
+                var target = e.target;
+                var paragraph = target.parentElement.parentNode.getElementsByTagName('p')[0]
+                
+                target.parentNode.style.display = 'none'
+                paragraph.style.display = ''
+                renameCard(e.target.value, paragraph)
+            }} className='w-[100%] bg-transparent' />
+            <div className='w-[100%] flow-root'>
+                <input className='w-[25px] h-[20px] border border-white bg-gray-900' defaultValue="1"></input>
+                <button className='text-lg'>🔼</button>
+                <button className='text-lg'>🔽</button>
+                <button className='hover:text-red-500 float-right' onClick={deleteCard}>X</button>
 
-        <textarea onBlur={(e) => {
-            var target = e.target;
-            var paragraph = target.parentElement.getElementsByTagName('p')[0]
-            
-            target.style.display = 'none'
-            paragraph.style.display = ''
-            renameCard(e.target.value, paragraph)
-        }} style={{display: 'none'}} className='w-[100%] bg-transparent' />
-        
-        <button className='absolute top-1 right-0 pr-1 hover:text-red-500' onClick={deleteCard}>X</button>
+            </div>
+
+        </div>
     </div>
 )}
 
