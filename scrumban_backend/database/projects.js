@@ -43,6 +43,8 @@ export async function renameProject(title, id) {
 
 export async function deleteProject(id) {
     const [project] = await pool.query(`DELETE FROM projects WHERE Id=?`, [id])
-    const [lists] = await pool.query(`DELETE FROM lists WHERE ProjectId=?`, [id])
-    const [cards] = await pool.query(`DELETE FROM cards WHERE ListId=?`, [lists.insertId])
+    /*const [lists] = await pool.query(`DELETE FROM lists WHERE ProjectId=?`, [id])
+
+    console.log(lists.insertId)
+    const [cards] = await pool.query(`DELETE FROM cards WHERE ListId=?`, [lists.insertId])*/
 }
