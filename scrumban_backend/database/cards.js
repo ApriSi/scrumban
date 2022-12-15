@@ -39,6 +39,12 @@ export async function switchCard(listId, id, priority, currentPriority) {
     `, [priority, id])
 }
 
+export async function switchCardList(id, listId) {
+    const [switched] = await pool.query(`
+        UPDATE cards SET ListId=? WHERE Id=?
+    `, [listId, id])
+}
+
 export async function deleteCard(id) {
     const [card] = await pool.query(`
     DELETE FROM cards WHERE Id=?;

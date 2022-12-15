@@ -1,4 +1,4 @@
-import { createCard, deleteCard, getCard, getCards, getCardsByListId, switchCard, updateCard } from "../database/cards.js"
+import { createCard, deleteCard, getCard, getCards, getCardsByListId, switchCard, switchCardList, updateCard } from "../database/cards.js"
 import express from "express"
 
 const router = express.Router()
@@ -31,6 +31,11 @@ router.put('/:description/:cardId', async (req, res) => {
 
 router.put('/switch/:id/:listId/:priority/:currentPriority', async (req, res) => {
     const card = await switchCard(req.params.listId, req.params.id, req.params.priority, req.params.currentPriority)
+    res.json('Cards switched')
+})
+
+router.put('/changeList/:id/:newList', async (req, res) => {
+    const card = await switchCardList(req.params.id, req.params.newList)
     res.json('Cards switched')
 })
 

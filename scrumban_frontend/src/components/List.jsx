@@ -66,7 +66,9 @@ const List = ({id, title, color}) => {
 
                 <button className='absolute top-0 right-0 pt-1 pr-2 hover:text-red-500' onClick={deleteCard}><SvgIcon fontSize='small' component={Clear}/></button>
             <div className='flex flex-col gap-2'>
-                {cards?.map((card, key) => <Card cardLength={cards.length} listId={card.ListId} priority={card.Priority} id={card.Id} key={card.Priority} Description={card.Description}/>)}
+                <div className='flex flex-col gap-2'>
+                    {cards?.map((card, key) => <Card cardLength={cards.length} listId={card.ListId} priority={card.Priority} id={card.Id} key={card.Id} Description={card.Description}/>)}
+                </div>
                 
                 <div id="create-card-div" className={`hidden card-div-${id}`}>
                     <input id={`card-title-input-${id}`} type="text" placeholder='Card Name' className='text-gray-500 focus:outline-none rounded-l p-1 w-[80%] h-[30px]'/>

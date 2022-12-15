@@ -1,9 +1,10 @@
 import {putToAPI, deleteFromAPI} from '../utils/fetchFromApi'
-import { ArrowUpward, ArrowDownward, DeleteForever } from '@mui/icons-material';
+import { ArrowUpward, ArrowDownward, DeleteForever, ArrowLeft, ArrowRight } from '@mui/icons-material';
 import { SvgIcon } from '@mui/material';
 
 
 const Card = ({Description, id, listId, priority, cardLength}) => {
+  
     const renameCard = (description, paragraph, e) => {
         if (description === '') {
             return
@@ -25,7 +26,7 @@ const Card = ({Description, id, listId, priority, cardLength}) => {
     const moveTop = (e) => {
         textAreaFocus(e)
         var newPriority = priority - 1
-        
+
         if(priority == 1) return
         putToAPI(`cards/switch/${id}/${listId}/${newPriority}/${priority}`)
     }
@@ -36,11 +37,24 @@ const Card = ({Description, id, listId, priority, cardLength}) => {
 
         if(cardLength == priority) return
         putToAPI(`cards/switch/${id}/${listId}/${newPriority}/${priority}`)
-        
     }
 
-    const moveIndex = (e) => {
+    const changeListRight = (e) => {
         textAreaFocus(e)
+        ++listId
+        var newListElement = document.getElementById(`list-${listId}`).getElementsByTagName('div')[0].getElementsByTagName('div')[0]
+
+        newListElement.append(document.getElementById(`card-${id}`))
+        putToAPI(`cards/changeList/${id}/${listId}`)
+    }
+
+    const changeListLeft = (e) => {
+        textAreaFocus(e)
+        --listId
+        var newListElement = document.getElementById(`list-${listId}`).getElementsByTagName('div')[0].getElementsByTagName('div')[0]
+
+        newListElement.append(document.getElementById(`card-${id}`))
+        putToAPI(`cards/changeList/${id}/${listId}`)
     }
 
     return (
@@ -66,9 +80,11 @@ const Card = ({Description, id, listId, priority, cardLength}) => {
                 renameCard(e.target.value, paragraph)
             }} className='w-[100%] bg-transparent' />
             <div className='w-[100%] flow-root mt-2'>
-                <input className='w-[25px] h-[20px] border border-white bg-gray-900' onBlur={(e) => moveIndex(e)} defaultValue="1"></input>
+                <button className='text-lg hover:text-indigo-600' onClick={changeListLeft}><SvgIcon component={ArrowLeft}/></button>
                 <button className='text-lg hover:text-indigo-600' onClick={(e) => moveTop(e)}><SvgIcon component={ArrowUpward}/></button>
                 <button className='text-lg hover:text-indigo-600' onClick={(e) => moveBottom(e)}><SvgIcon component={ArrowDownward}/></button>
+                <button className='text-lg hover:text-indigo-600' onClick={changeListRight}><SvgIcon component={ArrowRight}/></button>
+
                 <button className='hover:text-red-500 float-right' onClick={deleteCard}><SvgIcon component={DeleteForever}/></button>
             </div>
         </div>
