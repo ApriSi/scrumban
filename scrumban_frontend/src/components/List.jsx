@@ -5,9 +5,6 @@ import { HideTextInput } from '../utils/utils.js'
 import { Clear } from '@mui/icons-material'
 import { SvgIcon } from '@mui/material'
 
-
-
-
 const List = ({id, title, color}) => {
     const [cards, setCards] = useState([])
     
@@ -18,6 +15,7 @@ const List = ({id, title, color}) => {
     useEffect(() => {
       fetchFromAPI(`cards/list/${id}`)
       .then((data) => setCards(data))
+      console.log("I was changed")
     }, [id])
 
     const renameList = (newTitle, titleElement, e) => {

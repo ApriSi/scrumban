@@ -1,10 +1,13 @@
 import {putToAPI, deleteFromAPI} from '../utils/fetchFromApi'
 import { ArrowUpward, ArrowDownward, DeleteForever, ArrowLeft, ArrowRight } from '@mui/icons-material';
 import { SvgIcon } from '@mui/material';
+import { useContext } from 'react';
+import { ProjectContext } from '../ProjectContext';
 
 
 const Card = ({Description, id, listId, priority, cardLength}) => {
-  
+    const { projectId, setProjectId } = useContext(ProjectContext)
+    
     const renameCard = (description, paragraph, e) => {
         if (description === '') {
             return
@@ -23,19 +26,32 @@ const Card = ({Description, id, listId, priority, cardLength}) => {
         textArea.focus()
     }
 
-    const moveTop = (e) => {
+    const moveTop = async (e) => {
         textAreaFocus(e)
         var newPriority = priority - 1
 
         if(priority == 1) return
+        //e.target.style.order = newPriority
+
         putToAPI(`cards/switch/${id}/${listId}/${newPriority}/${priority}`)
+    }
+    
+    function FindByAttributeValue(attribute, value, element_type)    {
+        element_type = element_type || "*";
+        var All = document.getElementById(element_type).getElementsByTagName('div');
+        for (var i = 0; i < All.length; i++)       {
+          if (All.getAttribute(attribute) == value) { return All; }
+        }
     }
 
     const moveBottom = (e) => {
         textAreaFocus(e)
         var newPriority = priority + 1
-
+        
         if(cardLength == priority) return
+        var secondCard = FindByAttributeValue('priority', priority, `input`)
+        console.log(secondCard)
+
         putToAPI(`cards/switch/${id}/${listId}/${newPriority}/${priority}`)
     }
 
@@ -60,7 +76,7 @@ const Card = ({Description, id, listId, priority, cardLength}) => {
     }
 
     return (
-    <div id={`card-${id}`} className=' bg-gray-900 border border-indigo-600 p-1 rounded hover:bg-gray-800 relative' title='Edit Text'>
+    <div id={`card-${id}`} priority={priority} className=' bg-gray-900 border border-indigo-600 p-1 rounded hover:bg-gray-800 relative' style={{order: priority}} title='Edit Text'>
         <p onClick={(e) => {
             var target = e.target;
             var div = target.parentElement.getElementsByTagName('div')[0]
