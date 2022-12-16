@@ -45,8 +45,8 @@ export async function switchCardList(id, listId) {
     `, [listId, id])
 }
 
-export async function deleteCard(id) {
+export async function deleteCard(id, priority, listId) {
     const [card] = await pool.query(`
-    DELETE FROM cards WHERE Id=?;
-    `, [id])
+    CALL deleteCards(?, ?, ?)
+    `, [id, priority, listId])
 }

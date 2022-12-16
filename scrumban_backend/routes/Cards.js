@@ -40,8 +40,9 @@ router.put('/changeList/:id/:newList', async (req, res) => {
 })
 
 router.delete('/:id', async (req, res) => {
-    const card = await deleteCard(req.params.id)
-    res.json('card deleted')
+    const card = await getCard(req.params.id)
+    const deletedCard = await deleteCard(req.params.id, card.Priority, card.ListId)
+    res.json(`card deleted ${card}`)
 })
 
 export default router
