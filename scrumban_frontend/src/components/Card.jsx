@@ -69,7 +69,11 @@ const Card = ({Description, id, listId, priority, cardLength}) => {
         newListElement.append(document.getElementById(`card-${id}`))
         putToAPI(`cards/changeList/${id}/${listId}`)
         textAreaFocus(e)
-        priority = newListElement.children.length + 1
+        if(newListElement.children.length == 0){       
+            priority == 0
+            return
+        }
+        priority = newListElement.children.length
     }
 
     const changeListLeft = (e) => {
@@ -79,7 +83,11 @@ const Card = ({Description, id, listId, priority, cardLength}) => {
         newListElement.append(document.getElementById(`card-${id}`))
         putToAPI(`cards/changeList/${id}/${listId}`)
         textAreaFocus(e)
-        priority = newListElement.children.length + 1
+        if(newListElement.children.length == 0){       
+            priority == 0
+            return
+        }
+        priority = newListElement.children.length
     }
 
     return (
