@@ -85,7 +85,7 @@ const Card = ({Description, id, listId, priority, cardLength}) => {
     }
 
     return (
-    <div id={`card-${id}`} priority={priority} className=' bg-gray-900 border border-indigo-600 p-1 rounded hover:bg-gray-800 relative' title='Edit Text'>
+    <div id={`card-${id}`} className=' bg-gray-900 border border-indigo-600 p-1 rounded hover:bg-gray-800 relative' title='Edit Text'>
         <p onClick={(e) => {
             var target = e.target;
             var div = target.parentElement.getElementsByTagName('div')[0]
