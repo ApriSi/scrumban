@@ -30,57 +30,55 @@ const Card = ({Description, id, listId, priority, cardLength}) => {
         var child = e.currentTarget.parentElement.parentElement.parentNode;
         var parent = child.parentElement;
 
-        var index = Array.prototype.indexOf.call(parent.children, child);
-        return {index, child, parent}
+        return {child, parent}
     }
 
     const moveTop = async (e) => {
-        textAreaFocus(e)
         var newPriority = priority - 1
 
         if(priority == 1) return
        
         let card = getCardInfo(e)
-        card.parent.insertBefore(card.child, card.parent.children[card.index - 1])
+        card.parent.insertBefore(card.child, card.child.previousSibling)
 
         putToAPI(`cards/switch/${id}/${listId}/${newPriority}/${priority}`)
+        textAreaFocus(e)
         priority = newPriority
     }
     
 
     const moveBottom = (e) => {
-        textAreaFocus(e)
         var newPriority = priority + 1
         
-        if(cardLength == priority) {
-            console.log("gkreogk")
-            return  
-        } 
+        if(cardLength == priority) return  
+        
+
         let card = getCardInfo(e)
-        card.parent.insertBefore(card.parent.children[card.index + 1], card.child)
+        card.parent.insertBefore(card.child.nextSibling, card.child)
 
         putToAPI(`cards/switch/${id}/${listId}/${newPriority}/${priority}`)
+        textAreaFocus(e)
         priority = newPriority
     }
 
     const changeListRight = (e) => {
-        textAreaFocus(e)
-
+        
         ++listId
         var newListElement = document.getElementById(`list-${listId}`).getElementsByTagName('div')[0].getElementsByTagName('div')[0]
-
+        
         newListElement.append(document.getElementById(`card-${id}`))
         putToAPI(`cards/changeList/${id}/${listId}`)
+        textAreaFocus(e)
         priority = newListElement.children.length + 1
     }
 
     const changeListLeft = (e) => {
-        textAreaFocus(e)
         
         --listId
         var newListElement = document.getElementById(`list-${listId}`).getElementsByTagName('div')[0].getElementsByTagName('div')[0]
         newListElement.append(document.getElementById(`card-${id}`))
         putToAPI(`cards/changeList/${id}/${listId}`)
+        textAreaFocus(e)
         priority = newListElement.children.length + 1
     }
 
