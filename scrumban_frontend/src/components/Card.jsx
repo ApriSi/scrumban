@@ -26,33 +26,41 @@ const Card = ({Description, id, listId, priority, cardLength}) => {
         textArea.focus()
     }
 
+    const getCardInfo = (e) => {
+        var child = e.currentTarget.parentElement.parentElement.parentNode;
+        var parent = child.parentElement;
+
+        var index = Array.prototype.indexOf.call(parent.children, child);
+        return {index, child, parent}
+    }
+
     const moveTop = async (e) => {
         textAreaFocus(e)
         var newPriority = priority - 1
 
         if(priority == 1) return
-        //e.target.style.order = newPriority
+       
+        let card = getCardInfo(e)
+        card.parent.insertBefore(card.child, card.parent.children[card.index - 1])
 
         putToAPI(`cards/switch/${id}/${listId}/${newPriority}/${priority}`)
+        priority = newPriority
     }
     
-    function FindByAttributeValue(attribute, value, element_type)    {
-        element_type = element_type || "*";
-        var All = document.getElementById(element_type).getElementsByTagName('div');
-        for (var i = 0; i < All.length; i++)       {
-          if (All.getAttribute(attribute) == value) { return All; }
-        }
-    }
 
     const moveBottom = (e) => {
         textAreaFocus(e)
         var newPriority = priority + 1
         
-        if(cardLength == priority) return
-        var secondCard = FindByAttributeValue('priority', priority, `input`)
-        console.log(secondCard)
+        if(cardLength == priority) {
+            console.log("gkreogk")
+            return  
+        } 
+        let card = getCardInfo(e)
+        card.parent.insertBefore(card.parent.children[card.index + 1], card.child)
 
         putToAPI(`cards/switch/${id}/${listId}/${newPriority}/${priority}`)
+        priority = newPriority
     }
 
     const changeListRight = (e) => {
@@ -63,7 +71,7 @@ const Card = ({Description, id, listId, priority, cardLength}) => {
 
         newListElement.append(document.getElementById(`card-${id}`))
         putToAPI(`cards/changeList/${id}/${listId}`)
-
+        priority = newListElement.children.length + 1
     }
 
     const changeListLeft = (e) => {
@@ -73,10 +81,11 @@ const Card = ({Description, id, listId, priority, cardLength}) => {
         var newListElement = document.getElementById(`list-${listId}`).getElementsByTagName('div')[0].getElementsByTagName('div')[0]
         newListElement.append(document.getElementById(`card-${id}`))
         putToAPI(`cards/changeList/${id}/${listId}`)
+        priority = newListElement.children.length + 1
     }
 
     return (
-    <div id={`card-${id}`} priority={priority} className=' bg-gray-900 border border-indigo-600 p-1 rounded hover:bg-gray-800 relative' style={{order: priority}} title='Edit Text'>
+    <div id={`card-${id}`} priority={priority} className=' bg-gray-900 border border-indigo-600 p-1 rounded hover:bg-gray-800 relative' title='Edit Text'>
         <p onClick={(e) => {
             var target = e.target;
             var div = target.parentElement.getElementsByTagName('div')[0]
